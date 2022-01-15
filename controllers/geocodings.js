@@ -15,7 +15,7 @@ const getLatitudeLongitude = (req, res) => {
     console.log(url);
     request(url, (error, response, body) => {
       if (!error && response.statusCode == 200) {
-        console.log(body[0].geometry);
+        console.log(body);
         /* returnedAddresses.push({
             add: address,
             location: 
