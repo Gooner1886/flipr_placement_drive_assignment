@@ -1,7 +1,7 @@
 const express = require("express");
 const {
     getDeviceData
-  } = require("../controllers/tasks");
+  } = require("../controllers/tests");
 
 const router = express.Router();
 
