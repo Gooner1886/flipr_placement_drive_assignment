@@ -33,7 +33,7 @@ const getDeviceAndStatusData = async (req, res) => {
     data.forEach((device) => {
       devices.push(device.id);
     });
-    /* console.log(devices); */
+    
 
     const statusCollection = db.collection("status");
     findLocation(devices, statusCollection);

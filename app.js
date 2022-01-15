@@ -1,15 +1,12 @@
 const express = require("express");
 const app = express();
 require('dotenv').config()
-const tests = require('./routes/tests');
-const geocodings = require('./routes/geocodings')
+const apiRoutes = require('./routes/apiRoutes')
 
 //middleware 
 app.use(express.json());
 
-app.use("/api", tests);
-
-app.use("/api/geocoding", geocodings);
+app.use("/api", apiRoutes);
 
 const port = 3000;
 
