@@ -7,7 +7,7 @@ const geocodings = require('./routes/geocodings')
 //middleware 
 app.use(express.json());
 
-/* app.use("/api/v1", tests); */
+app.use("/api", tests);
 
 app.use("/api/geocoding", geocodings);
 

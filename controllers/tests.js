@@ -1,15 +1,47 @@
-const Device = require('../models/device');
-const { connect } = require("mongoose");
-const connectDB = require("../db/connect");
+const mongoose = require("mongoose");
 
-const getDeviceData = async (req, res) => {
+mongoose.connect(process.env.MONGO_KEY, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", (err) => console.log(err));
+db.once("open", () => console.log("Connected to MongoDB"));
+
+const findLocation = (devices, statusCollection) => {
+  devices.forEach(async (device) => {
+    const statuses = await statusCollection
+      .find({ id: device })
+      .limit(50)
+      .toArray();
+    console.log(statuses);
+  });
+};
+
+const getDeviceAndStatusData = async (req, res) => {
+  const uri = req.body.uri;
+  const collection1 = req.params.c1;
+  const collection2 = req.query.c2;
+  console.log(uri, collection1, collection2);
+
+  let devices = [];
+
   try {
-    const url = req.body;
-    connectDB(url);
-    const collection1 = req.params.collection1;
-  } catch (error) {
-    res.status(500).json({ message: error });
+    const devicesCollection = db.collection("devices");
+    const data = await devicesCollection
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(30)
+      .toArray();
+    data.forEach((device) => {
+      devices.push(device.id);
+    });
+    /* console.log(devices); */
+
+    const statusCollection = db.collection("status");
+    findLocation(devices, statusCollection);
+
+    res.json(data);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
 };
 
-module.exports = { getDeviceData };
+module.exports = { getDeviceAndStatusData };

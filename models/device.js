@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
 const DeviceSchema = new mongoose.Schema({
-}, {strict: 'false'});
+}, {strict: 'false'}, {collection : 'devices'});
 
-module.exports = mongoose.model("Device", DeviceSchema);
+module.exports = mongoose.model("device", DeviceSchema, 'devices');
