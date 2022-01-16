@@ -17,8 +17,8 @@ const findLocation = (devices, statusCollection) => {
 
 const getDeviceAndStatusData = async (req, res) => {
   const uri = req.body.uri;
-  const collection1 = req.params.c1;
-  const collection2 = req.query.c2;
+  const collection1 = req.params.collection1;
+  const collection2 = req.query.collection2;
   console.log(uri, collection1, collection2);
 
   let devices = [];
@@ -33,10 +33,16 @@ const getDeviceAndStatusData = async (req, res) => {
     data.forEach((device) => {
       devices.push(device.id);
     });
-    
+
+    console.log(data);
 
     const statusCollection = db.collection("status");
-    findLocation(devices, statusCollection);
+    const statusData = await statusCollection
+      .find()
+      .limit(50)
+      .toArray();
+    console.log(statusData);
+    /* findLocation(devices, statusCollection); */
 
     res.json(data);
   } catch (e) {
