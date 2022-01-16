@@ -6,7 +6,9 @@ const {
 
 const router = express.Router();
 
-router.route("/").post(getLatitudeLongitude);
+router.route("/").get((req, res) => {
+  res.send('Welcome to the server!')
+}).post(getLatitudeLongitude);
 router.route("/:collection1").post(getDeviceAndStatusData);
 
 

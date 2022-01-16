@@ -8,10 +8,6 @@ app.use(express.json());
 
 app.use("/api", apiRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the server!")
-})
-
 const port = process.env.PORT || 3000
 
 const start = () => {
