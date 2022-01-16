@@ -37,14 +37,16 @@ const getDeviceAndStatusData = async (req, res) => {
     console.log(data);
 
     const statusCollection = db.collection("status");
-    const statusData = await statusCollection
-      .find()
-      .limit(50)
-      .toArray();
+    const statusData = await statusCollection.find().limit(50).toArray();
     console.log(statusData);
-    /* findLocation(devices, statusCollection); */
-
-    res.json(data);
+    findLocation(devices, statusCollection);
+    res.json({
+      Name: "Siddharth Sarma",
+      Email: "siddharthgsarma5@gmail.com",
+      deviceIds: devices,
+      Message:
+        "No device ID in status collection relating ID in Device collection. View Device and Status data in Console. Inspect Page -> Go to Dev tools -> Console",
+    });
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
